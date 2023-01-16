@@ -1,0 +1,47 @@
+html, body {
+    /* Setting the width and height of the body allows to use percentage in the children. */
+    width: 100vw;
+    height: 100vh;
+    /* overflow manages what happen if the content is too big for the size of the container. In this case,
+    we want each slide to fill exactly the width and height of the browser so everything else should be hidden. */
+    overflow: hidden;
+    /* Some browsers add a margin to body by default, for no reason. */
+    margin: 0;
+    /* Hexadecimal colors can defined in CSS with only 3 numbers, in which case they are duplicated: #123 --> #112233*/
+    background-color: #ffffff;
+}
+.slide {
+    width: 100vw;
+    height: 100vh;
+
+    background-color: #fff;
+}
+
+.titre{
+    width: 100vw;
+    height: 15vh;
+}
+
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+}
+
+.containing{
+    width: 100vw;
+    height: 85vh;
+}
+
+.color {
+    color: black;
+}
+
+.returnButton{
+    position: absolute;
+
+    top: 0px;
+    left: 0px;
+}
