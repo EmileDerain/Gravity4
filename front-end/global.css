@@ -10,7 +10,6 @@ html, body {
     /* Hexadecimal colors can defined in CSS with only 3 numbers, in which case they are duplicated: #123 --> #112233*/
     background-color: #ffffff;
 }
-
 .slide {
     width: 100vw;
     height: 100vh;
@@ -27,6 +26,8 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    position: relative;
 }
 
 .containing{
@@ -36,4 +37,11 @@ html, body {
 
 .color {
     color: black;
+}
+
+.returnButton{
+    position: absolute;
+
+    top: 0px;
+    left: 0px;
 }
