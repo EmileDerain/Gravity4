@@ -1,0 +1,52 @@
+html{
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+
+
+.overlay{
+    position: absolute;
+    width: 48vw;
+    background-color: black;
+    height: 56vh;
+    left: 10vw;
+    top:33vh;
+}
+
+.grid4{
+    display: grid;
+    grid-template-columns: 8vw 8vw 8vw 8vw 8vw 8vw;
+    grid-template-rows: 8vh 8vh 8vh 8vh 8vh 8vh 8vh  ;
+}
+
+.case4{
+    height: 8vh;
+    width: 8vw;
+    background-color: #ffffff;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 0.5px 0.5px, rgb(51, 51, 51) 0px 0px 0px 1px;
+}
+
+.case4{
+    height: 8vh;
+    width: 8vw;
+    background-color: #ffffff;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 0.5px 0.5px, rgb(51, 51, 51) 0px 0px 0px 1px;
+}
+.case4red{
+    height: 8vh;
+    width: 8vw;
+    background-color: red;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 0.5px 0.5px, rgb(51, 51, 51) 0px 0px 0px 1px;
+}
+
+.case4yellow{
+    height: 8vh;
+    width: 8vw;
+    background-color: yellow;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 0.5px 0.5px, rgb(51, 51, 51) 0px 0px 0px 1px;
+}
+
+
+
+
