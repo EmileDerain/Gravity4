@@ -7,6 +7,7 @@ html{
 
 .overlay{
     position: absolute;
+    display:flex;
     width: 48vw;
     background-color: black;
     height: 56vh;
@@ -15,9 +16,12 @@ html{
 }
 
 .grid4{
+
+    width: 8vw;
+    height: 56vh;
     display: grid;
-    grid-template-columns: 8vw 8vw 8vw 8vw 8vw 8vw;
-    grid-template-rows: 8vh 8vh 8vh 8vh 8vh 8vh 8vh  ;
+    grid-template-columns: 8vw ;
+    grid-template-rows: 8vh 8vh 8vh 8vh 8vh 8vh 8vh ;
 }
 
 .case4{
