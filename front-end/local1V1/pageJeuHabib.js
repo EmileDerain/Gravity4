@@ -1,4 +1,3 @@
-
 const column1 = document.getElementById('column1');
 const column2 = document.getElementById('column2');
 const column3 = document.getElementById('column3');
@@ -7,119 +6,204 @@ const column5 = document.getElementById('column5');
 const column6 = document.getElementById('column6');
 const column7 = document.getElementById('column7');
 
-column1.addEventListener('click',play)
-column2.addEventListener('click',play)
-column3.addEventListener('click',play)
-column4.addEventListener('click',play)
-column5.addEventListener('click',play)
-column6.addEventListener('click',play)
-column7.addEventListener('click',play)
+column1.addEventListener('click', play)
+column2.addEventListener('click', play)
+column3.addEventListener('click', play)
+column4.addEventListener('click', play)
+column5.addEventListener('click', play)
+column6.addEventListener('click', play)
+column7.addEventListener('click', play)
 
 
-let currentPlayer=1;
+let currentPlayer = 1;
 
-let arrayColumn0 = [];
-let arrayColumn1 = [];
-let arrayColumn2 = [];
-let arrayColumn3 = [];
-let arrayColumn4 = [];
-let arrayColumn5 = [];
-let arrayColumn6 = [];
+let arrayColumnMinus3 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+let arrayColumnMinus2 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+let arrayColumnMinus1 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-let pow4 =[arrayColumn0,arrayColumn1,arrayColumn2,arrayColumn3,arrayColumn4,arrayColumn5,arrayColumn6];
+let arrayColumn0 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+let arrayColumn1 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+let arrayColumn2 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+let arrayColumn3 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+let arrayColumn4 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+let arrayColumn5 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+let arrayColumn6 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-function play(event){
-   
+let arrayColumnPlus7 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+let arrayColumnPlus8 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+let arrayColumnPlus9 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
+var nbPawnForEachColumns = [3, 3, 3, 3, 3, 3, 3];
 
-    const rowNumber=whichColumnHasBeenClicked(event)
-    const columnNumber=whichColumnHasBeenClickedNumber(event)
-    if(!isThatPlayOKay(rowNumber)){
+let pow4 = [arrayColumnMinus3, arrayColumnMinus2, arrayColumnMinus1, arrayColumn0, arrayColumn1, arrayColumn2, arrayColumn3, arrayColumn4, arrayColumn5, arrayColumn6, arrayColumnPlus7, arrayColumnPlus8, arrayColumnPlus9];  //Tab : row = 12, col = 13
+
+function play(event) {
+
+    const rowNumber = whichColumnHasBeenClicked(event) - 3
+    const columnNumber = whichColumnHasBeenClickedNumber(event)
+    if (!isThatPlayOKay(rowNumber)) {
         return;
     }
-    if(currentPlayer==1){
-        let row="row";
-        row+=columnNumber;
-        row+=rowNumber+1
-        document.getElementById(row).className="case4red"
-        addPawnForAplayer(event,1)
-        currentPlayer=-1
+    if (currentPlayer == 1) {
+        let row = "row";
+        row += columnNumber;
+        row += rowNumber + 1  //Peut être uniformisé ?!
+        document.getElementById(row).className = "case4red"
+        addPawnForAplayer(event, 1)
+        currentPlayer = -1
         console.log(arrayColumn0.length)
         console.log(arrayColumn1.length)
+        console.log("Tab :", pow4);
+        if (checkPow4(columnNumber)) {
+            alert("Tu as gagné");
+        }
         return;
     }
-    if(currentPlayer==-1){
-        let row="row";
-        row+=columnNumber;
-        row+=rowNumber+1;
-        document.getElementById(row).className="case4yellow"
-        addPawnForAplayer(event,-1)
-        currentPlayer=1
+    if (currentPlayer == -1) {
+        let row = "row";
+        row += columnNumber;
+        row += rowNumber + 1;
+        document.getElementById(row).className = "case4yellow"
+        addPawnForAplayer(event, -1)
+        currentPlayer = 1
         console.log(arrayColumn0.length)
         console.log(arrayColumn1.length)
+        console.log("Tab :", pow4);
+        if (checkPow4(columnNumber)) {
+            alert("Tu as gagné");
+        }
         return;
     }
+
 }
 
 
-
-
-function addPawnForAplayer(event,int){
+function addPawnForAplayer(event, int) {
     switch (event.composedPath()[1].id) {
         case "column1":
-            arrayColumn0.push(int)
-            break
+            arrayColumn0[nbPawnForEachColumns[0]] = int;
+            nbPawnForEachColumns[0] += 1;
+            break;
         case "column2":
-            arrayColumn1.push(int)
-            break
+            arrayColumn1[nbPawnForEachColumns[1]] = int;
+            nbPawnForEachColumns[1] += 1;
+            break;
         case "column3":
-            arrayColumn2.push(int)
-            break
+            arrayColumn2[nbPawnForEachColumns[2]] = int;
+            nbPawnForEachColumns[2] += 1;
+            break;
         case "column4":
-            arrayColumn3.push(int)
-            break
+            arrayColumn3[nbPawnForEachColumns[3]] = int;
+            nbPawnForEachColumns[3] += 1;
+            break;
         case "column5":
-            arrayColumn4.push(int)
-            break
+            arrayColumn4[nbPawnForEachColumns[4]] = int;
+            nbPawnForEachColumns[4] += 1;
+            break;
         case "column6":
-            arrayColumn5.push(int)
-            break
+            arrayColumn5[nbPawnForEachColumns[5]] = int;
+            nbPawnForEachColumns[5] += 1;
+            break;
         case "column7":
-            arrayColumn6.push(int)
+            arrayColumn6[nbPawnForEachColumns[6]] = int;
+            nbPawnForEachColumns[6] += 1;
     }
 }
 
 function whichColumnHasBeenClicked(event) {
     switch (event.composedPath()[1].id) {
-        case "column1": return arrayColumn0.length
-        case "column2": return arrayColumn1.length
-        case "column3": return arrayColumn2.length
-        case "column4": return arrayColumn3.length
-        case "column5": return arrayColumn4.length
-        case "column6": return arrayColumn5.length
-        case "column7": return arrayColumn6.length
+        case "column1":
+            return nbPawnForEachColumns[0];
+        case "column2":
+            return nbPawnForEachColumns[1];
+        case "column3":
+            return nbPawnForEachColumns[2];
+        case "column4":
+            return nbPawnForEachColumns[3];
+        case "column5":
+            return nbPawnForEachColumns[4];
+        case "column6":
+            return nbPawnForEachColumns[5];
+        case "column7":
+            return nbPawnForEachColumns[6];
 
     }
 }
 
-function whichColumnHasBeenClickedNumber(event){
+function whichColumnHasBeenClickedNumber(event) {
     switch (event.composedPath()[1].id) {
-        case "column1": return 1
-        case "column2": return 2
-        case "column3": return 3
-        case "column4": return 4
-        case "column5": return 5
-        case "column6": return 6
-        case "column7": return 7
+        case "column1":
+            return 1;
+        case "column2":
+            return 2;
+        case "column3":
+            return 3;
+        case "column4":
+            return 4;
+        case "column5":
+            return 5;
+        case "column6":
+            return 6;
+        case "column7":
+            return 7;
     }
 }
 
-function isThatPlayOKay(int){
-    if(int>=7){
-        alert("Il n'y a plus de place dans cette colonne. Choisissez un autre emplacement")
-
-        return false
+function checkPow4(columnNumberForCheck) {
+    let column = columnNumberForCheck + 2; //car de base col0 = 1
+    let row = nbPawnForEachColumns[column - 3] - 1 //car de base col0 = 1
+    console.log("Center :", column, row);
+    //Row :
+    for (let pas = -3; pas < 1; pas++) {
+        let sum = 0;
+        for (let col = 0; col < 4; col++) {
+            sum += pow4[column + pas + col][row];
+        }
+        if (sum === 4 || sum === -4) {
+            return true;
+        }
     }
-    return true
+
+    //Column
+    for (let pas = -3; pas < 1; pas++) {
+        let sum = 0;
+        for (let ro = 0; ro < 4; ro++) {
+            sum += pow4[column][row + pas + ro];
+        }
+        if (sum === 4 || sum === -4) {
+            return true;
+        }
+    }
+
+    //SO - NE
+    for (let pas = -3; pas < 1; pas++) {
+        let sum = 0;
+        for (let pas2 = -3; pas2 < 1; pas2++) {
+            sum += pow4[column + pas2][row + pas2];
+        }
+        if (sum === 4 || sum === -4) {
+            return true;
+        }
+    }
+
+    //NO - SE
+    for (let pas = -3; pas < 1; pas++) {
+        let sum = 0;
+        for (let pas2 = -3; pas2 < 1; pas2++) {
+            sum += pow4[column - pas2][row + pas2];
+        }
+        if (sum === 4 || sum === -4) {
+            return true;
+        }
+    }
+
+}
+
+function isThatPlayOKay(int) {
+    if (int >= 6) {
+        alert("Il n'y a plus de place dans cette colonne. Choisissez un autre emplacement");
+        return false;
+    }
+    return true;
 }
 
