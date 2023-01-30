@@ -7,50 +7,107 @@ html{
 
 .overlay{
     position: absolute;
-    display:flex;
-    width: 48vw;
-    background-color: black;
-    height: 48vh;
-    left: 10vw;
-    top:33vh;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    left: 5vw;
+    top:25vh;
+    border: 3px rgb(8, 255, 0) outset;
+    background-color: rgb(0, 255, 13);
+    border-radius: 0.7cm;
+
 }
+.div{
+    display: inline-block;
+}
+
+
+
 
 .grid4{
 
-    width: 8vw;
-    height: 56vh;
     display: grid;
-    grid-template-columns: 8vw ;
-    grid-template-rows: 8vh 8vh 8vh 8vh 8vh 8vh 8vh ;
+    grid-template-rows: repeat(6, 1fr);
+    position: relative;
+
+
 }
 
-.case4{
-    height: 8vh;
-    width: 8vw;
-    background-color: #ffffff;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 0.5px 0.5px, rgb(51, 51, 51) 0px 0px 0px 1px;
+.grid4:hover:before{
+    box-sizing : border-box;
+    position: absolute;
+    top : -45px;
+    left: 0.9vw;
+    content: " ";
+    border-style: solid;
+    border-width: 5vh;
+
+
+    border-color: red transparent transparent transparent ;
+
 }
 
+
+
 .case4{
+    margin: 1vh 1vw;
+    border: 5px #00ff15 inset;
+    border-radius: 2cm ;
+    background-color: white;
+    cursor: pointer;
     height: 8vh;
-    width: 8vw;
-    background-color: #ffffff;
+    width: 8vh;
+
     box-shadow: rgba(0, 0, 0, 0.16) 0px 0.5px 0.5px, rgb(51, 51, 51) 0px 0px 0px 1px;
 }
 .case4red{
-    height: 8vh;
-    width: 8vw;
+    margin: 1vh 1vw;
+    border: 5px #00ff15 inset;
+    border-radius: 2cm ;
     background-color: red;
+    cursor: pointer;
+    height: 8vh;
+    width: 8vh;
+
     box-shadow: rgba(0, 0, 0, 0.16) 0px 0.5px 0.5px, rgb(51, 51, 51) 0px 0px 0px 1px;
 }
 
 .case4yellow{
-    height: 8vh;
-    width: 8vw;
+    margin: 1vh 1vw;
+    border: 5px #00ff15 inset;
+    border-radius: 2cm ;
     background-color: yellow;
+    cursor: pointer;
+    height: 8vh;
+    width: 8vh;
+
     box-shadow: rgba(0, 0, 0, 0.16) 0px 0.5px 0.5px, rgb(51, 51, 51) 0px 0px 0px 1px;
 }
 
+
+
+.couleur{
+    background: #ff0015;
+    border:solid;
+    width: 40px;
+    height: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    display: inline-block;
+}
+
+
+
+.table-aff{
+    border: 3px solid;
+    border-color: #00ff15;
+    position: absolute;
+    right : 20vw;
+    top :30vh;
+    padding: 5px;
+    text-align: center;
+
+
+}
 
 
 
