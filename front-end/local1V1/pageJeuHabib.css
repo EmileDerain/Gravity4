@@ -16,6 +16,21 @@ html{
     border-radius: 0.7cm;
 
 }
+
+.winnerScreen{
+    position: absolute;
+    left: 25vw;
+    top:25vh;
+    height: 50vh;
+    width: 50vw;
+    border: 3px black outset;
+    background-color: white;
+    border-radius: 0.7cm;
+    text-align: center;
+    visibility: hidden;
+}
+
+
 .div{
     display: inline-block;
 }
@@ -61,6 +76,11 @@ html{
 }
 .case4red{
     background-color: red;
+}
+
+h1 {
+    position: relative;
+    color: brown;
 }
 
 

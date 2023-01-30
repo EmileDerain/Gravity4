@@ -56,7 +56,9 @@ function play(event) {
         console.log(arrayColumn1.length)
         console.log("Tab :", pow4);
         if (checkPow4(columnNumber)) {
-            alert("Tu as gagné");
+            document.getElementById("currentWinner").className="couleur couleurRed"
+            document.getElementById("winnerscreen").style.visibility="visible"
+
         }
         return;
     }
@@ -72,7 +74,8 @@ function play(event) {
         console.log(arrayColumn1.length)
         console.log("Tab :", pow4);
         if (checkPow4(columnNumber)) {
-            alert("Tu as gagné");
+            document.getElementById("currentWinner").className="couleur couleurYellow"
+            document.getElementById("winnerscreen").style.visibility="visible"
         }
         return;
     }
