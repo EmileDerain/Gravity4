@@ -48,7 +48,8 @@ function play(event) {
         let row = "row";
         row += columnNumber;
         row += rowNumber + 1  //Peut être uniformisé ?!
-        document.getElementById(row).className = "case4red"
+        document.getElementById(row).className = "case4 case4red"
+        document.getElementById("currentPlayer").className = "couleur couleurYellow"
         addPawnForAplayer(event, 1)
         currentPlayer = -1
         console.log(arrayColumn0.length)
@@ -63,7 +64,8 @@ function play(event) {
         let row = "row";
         row += columnNumber;
         row += rowNumber + 1;
-        document.getElementById(row).className = "case4yellow"
+        document.getElementById(row).className = "case4 case4yellow"
+        document.getElementById("currentPlayer").className = "couleur couleurRed"
         addPawnForAplayer(event, -1)
         currentPlayer = 1
         console.log(arrayColumn0.length)

@@ -6,7 +6,7 @@ html{
 
 
 .overlay{
-    position: absolute;
+    position: relative;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     left: 5vw;
@@ -19,9 +19,6 @@ html{
 .div{
     display: inline-block;
 }
-
-
-
 
 .grid4{
 
@@ -52,41 +49,27 @@ html{
     margin: 1vh 1vw;
     border: 5px #00ff15 inset;
     border-radius: 2cm ;
-    background-color: white;
     cursor: pointer;
     height: 8vh;
     width: 8vh;
 
     box-shadow: rgba(0, 0, 0, 0.16) 0px 0.5px 0.5px, rgb(51, 51, 51) 0px 0px 0px 1px;
+}
+
+.case4white{
+    background-color: white;
 }
 .case4red{
-    margin: 1vh 1vw;
-    border: 5px #00ff15 inset;
-    border-radius: 2cm ;
     background-color: red;
-    cursor: pointer;
-    height: 8vh;
-    width: 8vh;
-
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 0.5px 0.5px, rgb(51, 51, 51) 0px 0px 0px 1px;
 }
+
 
 .case4yellow{
-    margin: 1vh 1vw;
-    border: 5px #00ff15 inset;
-    border-radius: 2cm ;
     background-color: yellow;
-    cursor: pointer;
-    height: 8vh;
-    width: 8vh;
-
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 0.5px 0.5px, rgb(51, 51, 51) 0px 0px 0px 1px;
 }
-
 
 
 .couleur{
-    background: #ff0015;
     border:solid;
     width: 40px;
     height: 40px;
@@ -96,18 +79,34 @@ html{
 }
 
 
+.couleurRed{
+    background: #ff0015;
+}
+.couleurYellow{
+    background: #FFFF00FF;
+}
+
+
 
 .table-aff{
     border: 3px solid;
     border-color: #00ff15;
-    position: absolute;
-    right : 20vw;
-    top :30vh;
+    position: relative;
+    right: -7vw;
+    top:25vh;
+    height: 24vh;
     padding: 5px;
     text-align: center;
 
 
 }
+
+.screen{
+    display: flex;
+
+}
+
+
 
 
 
