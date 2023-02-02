@@ -16,6 +16,7 @@ column7.addEventListener('click', play)
 
 
 let currentPlayer = 1;
+let wegotawinner = false;
 
 let arrayColumnMinus3 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 let arrayColumnMinus2 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -38,47 +39,54 @@ var nbPawnForEachColumns = [3, 3, 3, 3, 3, 3, 3];
 let pow4 = [arrayColumnMinus3, arrayColumnMinus2, arrayColumnMinus1, arrayColumn0, arrayColumn1, arrayColumn2, arrayColumn3, arrayColumn4, arrayColumn5, arrayColumn6, arrayColumnPlus7, arrayColumnPlus8, arrayColumnPlus9];  //Tab : row = 12, col = 13
 
 function play(event) {
-
-    const rowNumber = whichColumnHasBeenClicked(event) - 3
-    const columnNumber = whichColumnHasBeenClickedNumber(event)
-    if (!isThatPlayOKay(rowNumber)) {
-        return;
-    }
-    if (currentPlayer == 1) {
-        let row = "row";
-        row += columnNumber;
-        row += rowNumber + 1  //Peut être uniformisé ?!
-        document.getElementById(row).className = "case4 case4red"
-        document.getElementById("currentPlayer").className = "couleur couleurYellow"
-        addPawnForAplayer(event, 1)
-        currentPlayer = -1
-        console.log(arrayColumn0.length)
-        console.log(arrayColumn1.length)
-        console.log("Tab :", pow4);
-        if (checkPow4(columnNumber)) {
-            document.getElementById("currentWinner").className="couleur couleurRed"
-            document.getElementById("winnerscreen").style.visibility="visible"
-
+    console.log(wegotawinner)
+    if (wegotawinner == false) {
+        const rowNumber = whichColumnHasBeenClicked(event) - 3
+        const columnNumber = whichColumnHasBeenClickedNumber(event)
+        if (!isThatPlayOKay(rowNumber)) {
+            return;
         }
-        return;
-    }
-    if (currentPlayer == -1) {
-        let row = "row";
-        row += columnNumber;
-        row += rowNumber + 1;
-        document.getElementById(row).className = "case4 case4yellow"
-        document.getElementById("currentPlayer").className = "couleur couleurRed"
-        addPawnForAplayer(event, -1)
-        currentPlayer = 1
-        console.log(arrayColumn0.length)
-        console.log(arrayColumn1.length)
-        console.log("Tab :", pow4);
-        if (checkPow4(columnNumber)) {
-            document.getElementById("currentWinner").className="couleur couleurYellow"
-            document.getElementById("winnerscreen").style.visibility="visible"
+        if (currentPlayer == 1) {
+            let row = "row";
+            row += columnNumber;
+            row += rowNumber + 1  //Peut être uniformisé ?!
+            document.getElementById(row).className = "case4 case4red"
+            document.getElementById("currentPlayer").className = "couleur couleurYellow"
+            addPawnForAplayer(event, 1)
+            currentPlayer = -1
+            console.log(arrayColumn0.length)
+            console.log(arrayColumn1.length)
+            console.log("Tab :", pow4);
+            if (checkPow4(columnNumber)) {
+                document.getElementById("currentWinner").className = "couleur couleurRed"
+                document.getElementById("winnerscreen").style.visibility = "visible"
+                wegotawinner = true;
+
+            }
+            return;
         }
+        if (currentPlayer == -1) {
+            let row = "row";
+            row += columnNumber;
+            row += rowNumber + 1;
+            document.getElementById(row).className = "case4 case4yellow"
+            document.getElementById("currentPlayer").className = "couleur couleurRed"
+            addPawnForAplayer(event, -1)
+            currentPlayer = 1
+            console.log(arrayColumn0.length)
+            console.log(arrayColumn1.length)
+            console.log("Tab :", pow4);
+            if (checkPow4(columnNumber)) {
+                document.getElementById("currentWinner").className = "couleur couleurYellow"
+                document.getElementById("winnerscreen").style.visibility = "visible"
+                wegotawinner = true;
+            }
+            return;
+        }
+    } else {
         return;
     }
+
 
 }
 
@@ -212,7 +220,7 @@ function isThatPlayOKay(int) {
     return true;
 }
 
-window.onload = function() {
+window.onload = function () {
 
     const temps = document.getElementById("timer")
     let tempo = 0;
@@ -221,12 +229,12 @@ window.onload = function() {
         let minutes = parseInt(tempo / 60, 10)
         let secondes = parseInt(tempo % 60, 10)
         tempo++
-        let textMinutes = (minutes>9)?minutes:"0"+minutes;
-        let textSecondes = (secondes>9)?secondes:"0"+secondes;
+        let textMinutes = (minutes > 9) ? minutes : "0" + minutes;
+        let textSecondes = (secondes > 9) ? secondes : "0" + secondes;
         temps.innerText = textMinutes + ":" + textSecondes;
     }
 
-    function colorieBasPlateau(){
+    function colorieBasPlateau() {
         let tab = [];
         tab.push(document.getElementById("column1"));
         tab.push(document.getElementById("column2"));
@@ -237,15 +245,16 @@ window.onload = function() {
         tab.push(document.getElementById("column7"));
         tab.forEach(x => colorie(x));
     }
-    function colorie(elements){
+
+    function colorie(elements) {
         let taille = elements.length
         for (var i = 0; i < elements.length; i++) {
-            elements[i].addEventListener("mouseover", function() {
+            elements[i].addEventListener("mouseover", function () {
 
-                elements[taille-1].style.border = "5px #0059ff inset";
+                elements[taille - 1].style.border = "5px #0059ff inset";
             });
-            elements[i].addEventListener("mouseout", function() {
-                elements[taille-1].style.border = "5px #00ff15 inset";
+            elements[i].addEventListener("mouseout", function () {
+                elements[taille - 1].style.border = "5px #00ff15 inset";
             });
         }
     }
