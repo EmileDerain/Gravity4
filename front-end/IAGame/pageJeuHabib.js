@@ -16,11 +16,70 @@ column5.addEventListener('click', play)
 column6.addEventListener('click', play)
 column7.addEventListener('click', play)
 
+let board = 0;
+
+socket.on('initGame', function (msg) {
+    console.log('InitGameClient: ', msg);
+    board = msg;
+});
+
+socket.on('updatedBoard', function (msg) {
+    console.log('updatedBoardClient: ', msg);
+    board = JSON.parse(msg).board;
+    colorBoard();
+});
+
+socket.emit('setup', JSON.stringify({"AIplays": 1}));
+
 function play(event) {
-    const rowNumber = whichColumnHasBeenClicked(event)
+    //const rowNumber = whichColumnHasBeenClicked(event)
     const columnNumber = whichColumnHasBeenClickedNumber(event)
 
-    socket.emit('updatedBoard', JSON.stringify({rowNumber, columnNumber}));
+    //socket.emit('updatedBoard', JSON.stringify([rowNumber, columnNumber]));
+    socket.emit('updatedBoard', JSON.stringify([columnNumber, whichRow(columnNumber)]));
+}
+
+function whichColumnHasBeenClickedNumber(event) {
+    switch (event.composedPath()[1].id) {
+        case "column1":
+            return 0;
+        case "column2":
+            return 1;
+        case "column3":
+            return 2;
+        case "column4":
+            return 3;
+        case "column5":
+            return 4;
+        case "column6":
+            return 5;
+        case "column7":
+            return 6;
+    }
+}
+
+function whichRow(column) {
+    console.log('board -> row: ', board);
+    for (let j = 0; j <= 5; j++) {
+        if (board[column][j] === 0) {
+            return j;
+        }
+    }
+}
+
+function colorBoard() {
+    for (let j = 0; j <= 6; j++) {
+        for (let i = 0; i <= 5; i++) {
+            let row = "row";
+            row += j + 1;
+            row += i + 1;
+            if (board[j][i] === 1) {
+                document.getElementById(row).className = "case4 case4yellow";
+            } else if (board[j][i] === -1) {
+                document.getElementById(row).className = "case4 case4red";
+            }
+        }
+    }
 }
 
 
@@ -30,9 +89,9 @@ window.onload = function () {
     let tempo = 0;
 
     function timer() {
-        let minutes = parseInt(tempo / 60, 10)
-        let secondes = parseInt(tempo % 60, 10)
-        tempo++
+        let minutes = parseInt(tempo / 60, 10);
+        let secondes = parseInt(tempo % 60, 10);
+        tempo++;
         let textMinutes = (minutes > 9) ? minutes : "0" + minutes;
         let textSecondes = (secondes > 9) ? secondes : "0" + secondes;
         temps.innerText = textMinutes + ":" + textSecondes;

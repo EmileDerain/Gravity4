@@ -26,10 +26,7 @@ const server = http.createServer(function (request, response) {
             console.log("ApI");
             apiQuery.manage(request, response);
             // If it doesn't start by /api, then it's a request for a file.
-        } else if(filePath[1] === "socket.io.js") {
-            console.log("Sok");
-            fileQuery.manageSocket(response);
-        }else {
+        } else {
             console.log("Normal");
             fileQuery.manage(request, response);
         }

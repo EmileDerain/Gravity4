@@ -73,34 +73,6 @@ function manageRequest(request, response) {
     });
 }
 
-function manageRequestSocket(response) {
-    let pathName = `node_modules/socket.io/client-dist/socket.io.js`;
-    let extension = '.js';
-    // Uncomment the line below if you want to check in the console what url.parse() and path.parse() create.
-    //console.log(parsedUrl, pathName, path.parse(pathName));
-
-    // Let's check if the file exists.
-    fs.exists(pathName, async function (exist) {
-        if (!exist){
-            send404(pathName, response);
-            return;
-        }
-
-        // Let's read the file from the file system and send it to the user.
-        fs.readFile(pathName, function (error, data) {
-            // The reading may fail if a folder was targeted but doesn't contain the default file.
-            if (error) {
-                console.log(`Error getting the file: ${pathName}: ${error}`);
-                send404(pathName, response);
-            } else {
-                // If the file is OK, let's set the MIME type and send it.
-                response.setHeader('Content-type', mimeTypes[extension] || mimeTypes['default']);
-                response.end(data);
-            }
-        });
-    });
-}
-
 function send404(path, response) {
     // Note that you can create a beautiful html page and return that page instead of the simple message below.
     response.statusCode = 404;
@@ -108,4 +80,3 @@ function send404(path, response) {
 }
 
 exports.manage = manageRequest;
-exports.manageSocket = manageRequestSocket;
