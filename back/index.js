@@ -10,6 +10,8 @@ const socketQuery = require('./queryManagers/firstServerSocket')
  */
 
 const server = http.createServer(function (request, response) {
+
+    console.log("request.body: ",request);
     // First, let's check the URL to see if it's a REST request or a file request.
     // We will remove all cases of "../" in the url for security purposes.
     let filePath = request.url.split("/").filter(function(elem) {

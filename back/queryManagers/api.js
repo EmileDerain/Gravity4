@@ -1,6 +1,9 @@
+const login = require('./api/login.js');
+
 // Main method, exported at the end of the file. It's the one that will be called when a REST request is received.
 function manageRequest(request, response) {
     response.statusCode = 200;
+    login.manageLogin(request, response);
     response.end(`Thanks for calling ${request.url}`);
 }
 

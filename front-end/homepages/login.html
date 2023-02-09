@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <title>Gravity4</title>
+    <link rel="stylesheet" type="text/css" href="../global.css" media="screen"/>
+</head>
+<body>
+<div class="slide">
+    <header class="titre center">
+        <h1>Gravity4</h1>
+    </header>
+    <section class="">
+        <form id="loginForm" action="#" onsubmit="login(); return false;">
+            <div class="">
+                <label for="mail">Email: </label>
+                <input type="email" name="mail" id="mail" required>
+            </div>
+            <div class="">
+                <label for="username">Pseudo: </label>
+                <input type="text" name="username" id="username" required>
+            </div>
+            <div class="">
+                <label for="password">Password: </label>
+                <input type="password" name="password" id="password" required>
+            </div>
+            <button type="submit">login</button>
+        </form>
+    </section>
+    <button class="selectButton" onclick="login()">Test</button>
+</div>
+</body>
+</html>
+
+<script src="connexion.js"></script>
