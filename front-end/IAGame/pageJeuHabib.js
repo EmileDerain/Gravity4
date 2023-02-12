@@ -16,31 +16,27 @@ column5.addEventListener('click', play)
 column6.addEventListener('click', play)
 column7.addEventListener('click', play)
 
-let board = 0;
+let board;
 
-socket.on('initGame', function (msg) {
-    console.log('InitGameClient: ', msg);
-    board = msg;
-});
+socket.emit('setup', JSON.stringify({"AIplays": 1}));
 
 socket.on('updatedBoard', function (msg) {
-    console.log('updatedBoardClient: ', msg);
+    console.log("updatedBoardClient");
     board = JSON.parse(msg).board;
+    console.log('colorBoard : ', board);
     colorBoard();
 });
 
-socket.on('gameover',function (player){
-    if(player==-1){
+//FAUX mtn
+socket.on('gameOver', function (player) {
+    if (player === 1) {
         document.getElementById("currentWinner").className = "couleur couleurRed"
         document.getElementById("winnerscreen").style.visibility = "visible"
-    }
-    else{
+    } else {
         document.getElementById("currentWinner").className = "couleur couleurYellow"
         document.getElementById("winnerscreen").style.visibility = "visible"
     }
 })
-
-socket.emit('setup', JSON.stringify({"AIplays": 1}));
 
 function play(event) {
     //const rowNumber = whichColumnHasBeenClicked(event)
@@ -70,7 +66,6 @@ function whichColumnHasBeenClickedNumber(event) {
 }
 
 function whichRow(column) {
-    console.log('board -> row: ', board);
     for (let j = 0; j <= 5; j++) {
         if (board[column][j] === 0) {
             return j;
@@ -86,7 +81,7 @@ function colorBoard() {
             row += i + 1;
             if (board[j][i] === 1) {
                 document.getElementById(row).className = "case4 case4yellow";
-            } else if (board[j][i] === -1) {
+            } else if (board[j][i] === 2) {
                 document.getElementById(row).className = "case4 case4red";
             }
         }
