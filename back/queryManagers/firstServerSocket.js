@@ -1,37 +1,47 @@
 const {Server} = require("socket.io");
-const gameManager = require('../logic/gameManager.js');
 const aiLogic = require('../logic/ai.js');
 
 function initSocket(server) {
     const io = new Server(server);
 
-
     io.on('connection', socket => {
-        console.log('Connexion pour une partie contre IA, socketID: ', socket.nsp);
+        console.log('Connexion pour une partie contre IA, socketID');
 
-        socket.on('disconnect', () => {
-            console.log("Fin d'une partie contre IA");
-        });
+        //Creation du game state
+        let gameState;
 
-        let gameState = new GameState();
-        socket.emit('initGame', JSON.stringify(gameState.board));
-
+        socket.on('setup', (msg) => {
+            const AIplays = JSON.parse(msg).AIplays;
+            if (AIplays === 1) {
+                gameState = new GameState(2, 1);
+                gameState.play(aiLogic.computeMove(gameState)[0], gameState.IANumber);
+                console.log("gameState.IANumber: ", gameState.IANumber);
+                socket.emit('updatedBoard', JSON.stringify({"board": gameState.board}));
+            } else {
+                gameState = new GameState(1, 2);
+                socket.emit('updatedBoard', JSON.stringify({"board": gameState.board}));
+            }
+        })
 
         socket.on('updatedBoard', (msg) => {
             const obj = JSON.parse(msg);
-            if (gameState.play(obj[0], 1)) {
-                console.log('WIN');
-                socket.emit('gameover', 1);
+            if (gameState.play(obj[0], gameState.playerNumber)) {
+                console.log('WIN du joueur ', gameState.playerNumber);
+                socket.emit('gameOver', {"winner": gameState.playerNumber});
                 wegotawinner = true;
             }
             console.log('obj: ', obj);
-            if (gameState.play(aiLogic.computeMove(gameState)[0], -1)) {
-                console.log('WIN');
-                socket.emit('gameover', -1);
+            if (gameState.play(aiLogic.computeMove(gameState)[0], gameState.IANumber)) {
+                console.log('WIN du joueur ', gameState.IANumber);
+                socket.emit('gameOver', {"winner": gameState.IANumber});
                 wegotawinner = true;
             }
+
             socket.emit('updatedBoard', JSON.stringify({"board": gameState.board}));
-            console.log(gameState.board);
+        });
+
+        socket.on('disconnect', () => {
+            console.log("Fin d'une partie contre IA");
         });
     });
 }
@@ -63,8 +73,12 @@ class GameState {
     board = [[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]];  //Tab : row = 12, col = 13
 
+    IANumber;
+    playerNumber;
 
-    constructor() {
+    constructor(numberPlayer, numberIA) {
+        this.playerNumber = numberPlayer;
+        this.IANumber = numberIA;
     }
 
     play(column, player) {
@@ -123,7 +137,7 @@ class GameState {
         for (let pas = -3; pas < 1; pas++) {
             let sum = 0;
             for (let col = 0; col < 4; col++) {
-                sum += this.pow4[column + pas + col][row];
+                sum += this.pow4[column + pas + col][row] === 0 ? 0 : -1;
             }
             if (sum === 4 || sum === -4) {
                 return true;
@@ -134,7 +148,7 @@ class GameState {
         for (let pas = -3; pas < 1; pas++) {
             let sum = 0;
             for (let ro = 0; ro < 4; ro++) {
-                sum += this.pow4[column][row + pas + ro];
+                sum += this.pow4[column][row + pas + ro] === 1 ? 1 : -1;
             }
             if (sum === 4 || sum === -4) {
                 return true;
@@ -145,7 +159,7 @@ class GameState {
         for (let pas = -3; pas < 1; pas++) {
             let sum = 0;
             for (let pas2 = -3; pas2 < 1; pas2++) {
-                sum += this.pow4[column + pas2][row + pas2];
+                sum += this.pow4[column + pas2][row + pas2] === 1 ? 1 : -1;
             }
             if (sum === 4 || sum === -4) {
                 return true;
@@ -156,12 +170,14 @@ class GameState {
         for (let pas = -3; pas < 1; pas++) {
             let sum = 0;
             for (let pas2 = -3; pas2 < 1; pas2++) {
-                sum += this.pow4[column - pas2][row + pas2];
+                sum += this.pow4[column - pas2][row + pas2] === 1 ? 1 : -1;
             }
             if (sum === 4 || sum === -4) {
                 return true;
             }
         }
+
+        return false;
 
     }
 
