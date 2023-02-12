@@ -29,6 +29,17 @@ socket.on('updatedBoard', function (msg) {
     colorBoard();
 });
 
+socket.on('gameover',function (player){
+    if(player==-1){
+        document.getElementById("currentWinner").className = "couleur couleurRed"
+        document.getElementById("winnerscreen").style.visibility = "visible"
+    }
+    else{
+        document.getElementById("currentWinner").className = "couleur couleurYellow"
+        document.getElementById("winnerscreen").style.visibility = "visible"
+    }
+})
+
 socket.emit('setup', JSON.stringify({"AIplays": 1}));
 
 function play(event) {

@@ -11,14 +11,11 @@ const socketQuery = require('./queryManagers/firstServerSocket')
 
 const server = http.createServer(function (request, response) {
 
-    console.log("request.body: ",request);
     // First, let's check the URL to see if it's a REST request or a file request.
     // We will remove all cases of "../" in the url for security purposes.
-    let filePath = request.url.split("/").filter(function(elem) {
+    let filePath = request.url.split("/").filter(function (elem) {
         return elem !== "..";
     });
-
-    console.log('Befort request.url: ', request.url);
 
     console.log("filePath: ", filePath[1]);
 
@@ -32,7 +29,7 @@ const server = http.createServer(function (request, response) {
             console.log("Normal");
             fileQuery.manage(request, response);
         }
-    } catch(error) {
+    } catch (error) {
         console.log(`error while processing ${request.url}: ${error}`)
         response.statusCode = 400;
         response.end(`Something in your request (${request.url}) is strange...`);

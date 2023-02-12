@@ -19,11 +19,17 @@ function initSocket(server) {
 
         socket.on('updatedBoard', (msg) => {
             const obj = JSON.parse(msg);
-            if (gameState.play(obj[0], 1))
+            if (gameState.play(obj[0], 1)) {
                 console.log('WIN');
+                socket.emit('gameover', 1);
+                wegotawinner = true;
+            }
             console.log('obj: ', obj);
-            if (gameState.play(aiLogic.computeMove(gameState)[0], -1))
+            if (gameState.play(aiLogic.computeMove(gameState)[0], -1)) {
                 console.log('WIN');
+                socket.emit('gameover', -1);
+                wegotawinner = true;
+            }
             socket.emit('updatedBoard', JSON.stringify({"board": gameState.board}));
             console.log(gameState.board);
         });
